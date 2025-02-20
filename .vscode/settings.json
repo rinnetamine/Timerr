@@ -1,0 +1,7 @@
+{
+    "fiveServer.highlight": true,
+    "fiveServer.injectBody": true,
+    "fiveServer.injectHead": true,
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1
+}
