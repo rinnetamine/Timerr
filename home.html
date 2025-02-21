@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Timerr</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="icon" href="media/favicon.ico" type="image/x-icon">
   </head>
 
@@ -95,148 +95,20 @@
 </div>
 
 </nav>
-    </header>
-    
+</header>
+
     <main>
-      <!-- What is Timerr -->
-      <section class="what-is-timerr">
-        <h2>What is Timerr?</h2>
-        <p>Timerr is a web platform that combines the ideas of Fiverr (freelance services) and TimeBank (using time as currency).</p>
-      </section>
-
-      <!-- How Timerr Works -->
-      <div class="how-it-works">
-        <section class="how-timerr-works">
-          <h2>How does Timerr work?</h2>
-          <p>Timerr allows users to offer services to others in exchange for time. Services are posted, verified, and time credits are managed on the platform.</p>
-        </section>
-        <img id="time_rr" src="media/time_rr.png" width="500" height="500">
-      </div>
-
-      <!-- Key Features -->
-      <section class="key-features">
-        <h2>Key Features</h2>
-        <ul>
-          <li><b>Profile Management: </b>Create and edit your profile, add/edit/delete services.</li>
-          <li><b>Search and Request Services: </b>Find or request needed services.</li>
-          <li><b>Service Verification: </b>Admins review and approve services.</li>
-          <li><b>Time Management: </b>Manage your time credits.</li>
-        </ul>
-      </section>
+        <div id="adList"></div>
+        <button id="createAdBtn" class="button-3">Create Advertisement</button>
     </main>
 
-    <div class="flex-container">
-      <div class="card">
-        <img id="list" src="media/list.png" alt="List requests">
-        <div class="card-content">
-          <h3>List offers!</h3>
-          <p>Search from already available services.</p>
-          <button class="button-3" role="button" id="openModalBtn1">Learn More!</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <img id="request" src="media/request.png" alt="Request services">
-        <div class="card-content">
-          <h3>Request services!</h3>
-          <p>Ask for help if you can't find from available.</p>
-          <button class="button-3" role="button" id="openModalBtn2">Learn More!</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <img id="offer" src="media/offer.png" alt="Offer services">
-        <div class="card-content">
-          <h3>Offer services!</h3>
-          <p>Earn your time by offering something.</p>
-          <button class="button-3" role="button" id="openModalBtn3">Learn More!</button>
-        </div>
-      </div>
-    </div>
-
-   <!-- Modal -->
-    <div id="modal1" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>Search for needed services from the whole spectrum that's already on site!</p>
-      </div>
-    </div>
-
-    <div id="modal2" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>Can't find something you need? Ask someone!</p>
-      </div>
-    </div>
-
-    <div id="modal3" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>Not enough hours? Offer something and do your best!</p>
-      </div>
-    </div>
 
     <script>
-      // change img on dark mode variant
+
+//dark mode
 function dark_mode() {
   var element = document.body;
-  element.classList.toggle("dark-mode");
-
-  var image = document.getElementById("time_rr");
-  if (image.src.includes("media/time_rr.png")) {
-    image.src = "media/time_rr_dark.png";
-  } else {
-    image.src = "media/time_rr.png";}
-
-  var image = document.getElementById("list");
-  if (image.src.includes("media/list.png")) {
-    image.src = "media/list_dark.png";
-  } else {
-    image.src = "media/list.png";
-  }
-
-  var image = document.getElementById("offer");
-  if (image.src.includes("media/offer.png")) {
-    image.src = "media/offer_dark.png";
-  } else {
-    image.src = "media/offer.png";}
-
-  var image = document.getElementById("request");
-  if (image.src.includes("media/request.png")) {
-    image.src = "media/request_dark.png";
-  } else {
-    image.src = "media/request.png";}
-
-  }
-
-// modal buttons appearing and closing func
-const openModalBtn1 = document.getElementById("openModalBtn1");
-const openModalBtn2 = document.getElementById("openModalBtn2");
-const openModalBtn3 = document.getElementById("openModalBtn3");
-
-const modal1 = document.getElementById("modal1");
-const modal2 = document.getElementById("modal2");
-const modal3 = document.getElementById("modal3");
-
-const closeBtns = document.getElementsByClassName("close");
-
-openModalBtn1.onclick = function() {
-  modal1.style.display = "flex";
-}
-
-openModalBtn2.onclick = function() {
-  modal2.style.display = "flex";
-}
-
-openModalBtn3.onclick = function() {
-  modal3.style.display = "flex";
-}
-
-for (let i = 0; i < closeBtns.length; i++) {
-  closeBtns[i].onclick = function() {
-    this.parentElement.parentElement.style.display = "none";
-  }
-}
+  element.classList.toggle("dark-mode");}
 
 // mobile version hamburger menu oppening
 function toggleMenu() {
@@ -307,7 +179,30 @@ function closeRegisterModal() {
   document.getElementById("loginModal").style.display = "block";
 }
 
-    </script>
+document.getElementById("createAdBtn").addEventListener("click", createAd);
 
-  </body>
+function createAd() {
+  const adList = document.getElementById("adList");
+
+  const adContainer = document.createElement("div");
+  adContainer.classList.add("ad");
+
+  adContainer.innerHTML = `
+    <h3>EXAMPLE</h3>
+    <p>EXAMPLE!</p>
+    <button class="deleteAdBtn">Delete</button>
+  `;
+
+  // Append the new ad to the ad list
+  adList.appendChild(adContainer);
+
+  // Add delete functionality
+  adContainer.querySelector(".deleteAdBtn").addEventListener("click", function() {
+    adContainer.remove();
+  });
+}
+
+</script>
+
+</body>
 </html>

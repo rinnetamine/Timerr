@@ -21,3 +21,7 @@ On **Timerr**, users can offer their services in various fields such as tutoring
 - **Convenient for students or those on a limited budget**: Engage in skill and service exchange without monetary transactions.
 - **Flexibility**: The range of services provided is limited only by your imagination.
 - **Safety**: A straightforward system for service verification by the site administration.
+
+## Current progress
+- **Login system**: users can register and login in account which is stored in local storage
+- WORKING ON **Profile management**: user can check his profile after logging in and his information
