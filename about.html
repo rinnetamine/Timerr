@@ -13,7 +13,7 @@
     <header>
       <h1>Timerr</h1>
       <nav>
-        <!-- Desktop-only -->
+        <!-- desktop -->
         <ul id="pc-only">
           <li><a href="home.html">Browse</a></li>
           <li><a href="about.html">About</a></li>
@@ -37,10 +37,9 @@
           <li><a id="dark-mode-button" onclick="dark_mode()">Dark mode</a></li>
         </ul>
         
-        <!--  icon -->
   <div id="hamburger" class="hamburger" onclick="toggleMenu()">&#9776;</div>
 
-  <!-- Mobile-only -->
+  <!-- mobile -->
 <ul id="mobile-only">
   <div id="hamburger" onclick="toggleMenu()">&times;</div>
   <li><a href="home.html">Browse</a></li>
@@ -64,7 +63,7 @@
   <li><a href="#" id="loginBtn">Login</a></li>
 </ul>
 
- <!-- log -->
+ <!-- log modal -->
  <div id="loginModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeLoginModal()">&times;</span>
@@ -79,7 +78,7 @@
   </div>
 </div>
 
-<!-- reg -->
+<!-- reg modal -->
 <div id="registerModal" class="modal" style="display:none;">
   <div class="modal-content">
     <span class="close" onclick="closeRegisterModal()">&times;</span>
@@ -98,13 +97,11 @@
     </header>
     
     <main>
-      <!-- What is Timerr -->
       <section class="what-is-timerr">
         <h2>What is Timerr?</h2>
         <p>Timerr is a web platform that combines the ideas of Fiverr (freelance services) and TimeBank (using time as currency).</p>
       </section>
 
-      <!-- How Timerr Works -->
       <div class="how-it-works">
         <section class="how-timerr-works">
           <h2>How does Timerr work?</h2>
@@ -113,7 +110,6 @@
         <img id="time_rr" src="media/time_rr.png" width="500" height="500">
       </div>
 
-      <!-- Key Features -->
       <section class="key-features">
         <h2>Key Features</h2>
         <ul>
@@ -125,6 +121,7 @@
       </section>
     </main>
 
+    <!-- cards -->
     <div class="flex-container">
       <div class="card">
         <img id="list" src="media/list.png" alt="List requests">
@@ -154,7 +151,7 @@
       </div>
     </div>
 
-   <!-- Modal -->
+   <!-- modal for cards -->
     <div id="modal1" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -177,136 +174,166 @@
     </div>
 
     <script>
-      // change img on dark mode variant
-function dark_mode() {
-  var element = document.body;
-  element.classList.toggle("dark-mode");
+      function dark_mode() {
+        var element = document.body;
+        element.classList.toggle("dark-mode");
+        // dark mode img change
+        var image = document.getElementById("time_rr");
+        if (image.src.includes("media/time_rr.png")) {
+          image.src = "media/time_rr_dark.png";
+        } else {
+          image.src = "media/time_rr.png";
+        }
 
-  var image = document.getElementById("time_rr");
-  if (image.src.includes("media/time_rr.png")) {
-    image.src = "media/time_rr_dark.png";
-  } else {
-    image.src = "media/time_rr.png";}
+        var image = document.getElementById("list");
+        if (image.src.includes("media/list.png")) {
+          image.src = "media/list_dark.png";
+        } else {
+          image.src = "media/list.png";
+        }
 
-  var image = document.getElementById("list");
-  if (image.src.includes("media/list.png")) {
-    image.src = "media/list_dark.png";
-  } else {
-    image.src = "media/list.png";
-  }
+        var image = document.getElementById("offer");
+        if (image.src.includes("media/offer.png")) {
+          image.src = "media/offer_dark.png";
+        } else {
+          image.src = "media/offer.png";
+        }
 
-  var image = document.getElementById("offer");
-  if (image.src.includes("media/offer.png")) {
-    image.src = "media/offer_dark.png";
-  } else {
-    image.src = "media/offer.png";}
+        var image = document.getElementById("request");
+        if (image.src.includes("media/request.png")) {
+          image.src = "media/request_dark.png";
+        } else {
+          image.src = "media/request.png";
+        }
+      }
+      //opening card modals
+      const openModalBtn1 = document.getElementById("openModalBtn1");
+      const openModalBtn2 = document.getElementById("openModalBtn2");
+      const openModalBtn3 = document.getElementById("openModalBtn3");
 
-  var image = document.getElementById("request");
-  if (image.src.includes("media/request.png")) {
-    image.src = "media/request_dark.png";
-  } else {
-    image.src = "media/request.png";}
+      const modal1 = document.getElementById("modal1");
+      const modal2 = document.getElementById("modal2");
+      const modal3 = document.getElementById("modal3");
 
-  }
+      const closeBtns = document.getElementsByClassName("close");
 
-// modal buttons appearing and closing func
-const openModalBtn1 = document.getElementById("openModalBtn1");
-const openModalBtn2 = document.getElementById("openModalBtn2");
-const openModalBtn3 = document.getElementById("openModalBtn3");
+      openModalBtn1.onclick = function() {
+        modal1.style.display = "flex";
+      }
 
-const modal1 = document.getElementById("modal1");
-const modal2 = document.getElementById("modal2");
-const modal3 = document.getElementById("modal3");
+      openModalBtn2.onclick = function() {
+        modal2.style.display = "flex";
+      }
 
-const closeBtns = document.getElementsByClassName("close");
+      openModalBtn3.onclick = function() {
+        modal3.style.display = "flex";
+      }
 
-openModalBtn1.onclick = function() {
-  modal1.style.display = "flex";
-}
+      for (let i = 0; i < closeBtns.length; i++) {
+        closeBtns[i].onclick = function() {
+          closest(".modal").style.display = "none";
+        }
+      }
+      // mobile menu button
+      function toggleMenu() {
+        const menu = document.getElementById("mobile-only");
+        const hamburger = document.getElementById("hamburger");
+        
+        menu.classList.toggle("active");
+        hamburger.classList.toggle("open");
+      }
 
-openModalBtn2.onclick = function() {
-  modal2.style.display = "flex";
-}
+      document.addEventListener("DOMContentLoaded", function () {
+          const loginBtn = document.getElementById("loginBtn");
+          const loginModal = document.getElementById("loginModal");
+          const loginForm = document.getElementById("loginForm");
+          const errorMessage = document.getElementById("errorMessage");
+          const registerModal = document.getElementById("registerModal");
+          const registerForm = document.getElementById("registerForm");
+          const registerMessage = document.getElementById("registerMessage");
+          const registerBtn = document.getElementById("registerBtn");
+          const loginBackBtn = document.getElementById("loginBackBtn");
+          
+          let users = JSON.parse(localStorage.getItem("users")) || {};
 
-openModalBtn3.onclick = function() {
-  modal3.style.display = "flex";
-}
+          // login modal on click
+          loginBtn.addEventListener("click", function () {
+              loginModal.style.display = "flex";
+          });
 
-for (let i = 0; i < closeBtns.length; i++) {
-  closeBtns[i].onclick = function() {
-    this.parentElement.parentElement.style.display = "none";
-  }
-}
+          // register modal on click
+          registerBtn.addEventListener("click", function () {
+              loginModal.style.display = "none";
+              registerModal.style.display = "flex";
+          });
 
-// mobile version hamburger menu oppening
-function toggleMenu() {
-  const menu = document.getElementById("mobile-only");
-  const hamburger = document.getElementById("hamburger");
-  
-  menu.classList.toggle("active");
-  hamburger.classList.toggle("open");
-}
+          // close modal when clicking outside
+          window.onclick = function (event) {
+              if (event.target === loginModal) {
+                  loginModal.style.display = "none";
+              } else if (event.target === registerModal) {
+                  registerModal.style.display = "none";
+              }
+          };
 
+            // handle login form submission
+            loginForm.addEventListener("submit", function (event) {
+              event.preventDefault();
+              
+              const username = document.getElementById("username").value;
+              const password = document.getElementById("password").value;
+              
+              if (users[username] && users[username] === password) {
+                localStorage.setItem("username", username);
+                localStorage.setItem("loggedIn", "true"); 
+                updateLoginButton(); 
+                loginModal.style.display = "none"; 
+              } else {
+                errorMessage.textContent = "Invalid username or password";
+              }
+            });
 
-// login modal 
-document.getElementById("loginBtn").addEventListener("click", openLoginModal);
+            // Handle register form submission
+            registerForm.addEventListener("submit", function (event) {
+              event.preventDefault();
+              
+              const newUsername = document.getElementById("newUsername").value;
+              const newPassword = document.getElementById("newPassword").value;
+              
+              if (users[newUsername]) {
+                registerMessage.textContent = "Username already taken.";
+              } else {
+                users[newUsername] = newPassword;
+                localStorage.setItem("users", JSON.stringify(users));
+                registerMessage.textContent = "Registration successful! You can now log in.";
+                setTimeout(() => {
+                  registerModal.style.display = "none";
+                  loginModal.style.display = "flex";
+                }, 1500);
+              }
+            });
 
-function openLoginModal() {
-  document.getElementById("loginModal").style.display = "block";
-}
+          // login to register button
+          loginBackBtn.addEventListener("click", function () {
+              registerModal.style.display = "none";
+              loginModal.style.display = "flex";
+          });
 
-function closeLoginModal() {
-  document.getElementById("loginModal").style.display = "none";
-}
+          function updateLoginButton() {
+              // check if the user is logged in
+              const username = localStorage.getItem("username");
 
-function toggleToRegister() {
-  document.getElementById("loginModal").style.display = "none";
-  document.getElementById("registerModal").style.display = "block";
-}
+              if (username) {
+                  loginBtn.textContent = "Profile";
+                  loginBtn.href = "profile.html";
+              } else {
+                  loginBtn.textContent = "Login";
+                  loginBtn.href = "#";
+              }
+          }
 
-function toggleToLogin() {
-  document.getElementById("registerModal").style.display = "none";
-  document.getElementById("loginModal").style.display = "block";
-}
-
-document.getElementById("loginForm").onsubmit = function(event) {
-  event.preventDefault();
-
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
-
-  const users = JSON.parse(localStorage.getItem('users')) || [];
-  const user = users.find(user => user.username === username && user.password === password);
-
-  if (user) {
-    alert("Login successful!");
-    closeLoginModal();
-  } else {
-    document.getElementById("errorMessage").innerText = "Invalid credentials!";
-  }
-};
-
-document.getElementById("registerForm").onsubmit = function(event) {
-  event.preventDefault();
-
-  const newUsername = document.getElementById("newUsername").value;
-  const newPassword = document.getElementById("newPassword").value;
-
-  const users = JSON.parse(localStorage.getItem('users')) || [];
-  users.push({ username: newUsername, password: newPassword });
-  localStorage.setItem('users', JSON.stringify(users));
-
-  document.getElementById("registerMessage").innerText = "Registration successful! You can now log in.";
-  setTimeout(() => {
-    toggleToLogin(); 
-  }, 2000);
-};
-
-function closeRegisterModal() {
-  document.getElementById("registerModal").style.display = "none";
-  document.getElementById("loginModal").style.display = "block";
-}
-
+          updateLoginButton();
+      });
     </script>
 
   </body>

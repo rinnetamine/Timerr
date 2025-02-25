@@ -26,4 +26,4 @@ On **Timerr**, users can offer their services in various fields such as tutoring
 - **Login system**: users can register and login in account which is stored in local storage
 - **Profile management**: user can check his profile after logging in and his information
 - **Advertisement creating**: user can create advertisements with his own name and description
-- WIP **Credit system**: user can earn,store credits and use them creating the ad.
+- !!!!WIP!!!!   **Credit system**: user can earn,store credits and use them creating the ad.
