@@ -62,8 +62,8 @@
               <form>
                 <input type="text" placeholder="Username" required>
                 <input type="password" placeholder="Password" required>
-                <button type="submit" class="button-login">Login</button>
               </form>
+              <button type="submit" class="button-login">Login</button>
               <p style="color:red;"></p>
               <button class="button-register" @click="toggleToRegister">Register</button>
             </div>
@@ -77,8 +77,8 @@
               <form>
                 <input type="text" placeholder="Username" required>
                 <input type="password" placeholder="Password" required>
-                <button type="submit" class="button-login">Register</button>
               </form>
+              <button type="submit" class="button-login">Register</button>
               <p style="color:red;"></p>
               <button class="button-register" @click="toggleToLogin">Back to Login</button>
             </div>
@@ -109,12 +109,12 @@
             <li><b>Time Management:</b> Manage your time credits.</li>
           </ul>
         </section>
-      </main>
+
   
       <div class="flex-container">
         <div class="card" @click="openCardModal(1)">
+            <div class="card-content">
           <img :src="darkMode ? 'media/list_dark.png' : 'media/list.png'" alt="List requests">
-          <div class="card-content">
             <h3>List offers!</h3>
             <p>Search from already available services.</p>
             <button class="button-3" role="button">Learn More!</button>
@@ -122,8 +122,8 @@
         </div>
   
         <div class="card" @click="openCardModal(2)">
+            <div class="card-content">
           <img :src="darkMode ? 'media/request_dark.png' : 'media/request.png'" alt="Request services">
-          <div class="card-content">
             <h3>Request services!</h3>
             <p>Ask for help if you can't find from available.</p>
             <button class="button-3" role="button">Learn More!</button>
@@ -131,15 +131,16 @@
         </div>
   
         <div class="card" @click="openCardModal(3)">
+            <div class="card-content">
           <img :src="darkMode ? 'media/offer_dark.png' : 'media/offer.png'" alt="Offer services">
-          <div class="card-content">
             <h3>Offer services!</h3>
             <p>Earn your time by offering something.</p>
             <button class="button-3" role="button">Learn More!</button>
           </div>
         </div>
       </div>
-  
+    </main>
+
       <!-- Card Modals -->
       <div v-if="cardModal === 1" class="modal">
         <div class="modal-content">
@@ -165,69 +166,86 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue'
-  
-  const darkMode = ref(false)
-  const mobileMenuOpen = ref(false)
-  const showLogin = ref(false)
-  const showRegister = ref(false)
-  const cardModal = ref(0)
-  
-  const toggleMenu = () => {
-    mobileMenuOpen.value = !mobileMenuOpen.value
-  }
-  
-  const toggleDarkMode = () => {
-    darkMode.value = !darkMode.value
-  }
-  
-  const openLoginModal = () => {
-    showLogin.value = true
-    showRegister.value = false
-  }
-  
-  const closeLoginModal = () => {
-    showLogin.value = false
-  }
-  
-  const openCardModal = (index) => {
-    cardModal.value = index
-  }
-  
-  const closeCardModal = () => {
-    cardModal.value = 0
-  }
-  
-  const toggleToRegister = () => {
-    showLogin.value = false
-    showRegister.value = true
-  }
-  
-  const toggleToLogin = () => {
-    showRegister.value = false
-    showLogin.value = true
-  }
-  
-  const closeRegisterModal = () => {
-    showRegister.value = false
-  }
-  </script>
+import { ref, onMounted, watch } from 'vue'
+
+const darkMode = ref(false)
+const mobileMenuOpen = ref(false)
+const showLogin = ref(false)
+const showRegister = ref(false)
+const cardModal = ref(0)
+
+const toggleMenu = () => {
+  mobileMenuOpen.value = !mobileMenuOpen.value
+}
+
+const toggleDarkMode = () => {
+  darkMode.value = !darkMode.value
+}
+
+// Modal controls
+const openLoginModal = () => {
+  showLogin.value = true
+  showRegister.value = false
+}
+
+const closeLoginModal = () => {
+  showLogin.value = false
+}
+
+const openCardModal = (index) => {
+  cardModal.value = index
+}
+
+const closeCardModal = () => {
+  cardModal.value = 0
+}
+
+const toggleToRegister = () => {
+  showLogin.value = false
+  showRegister.value = true
+}
+
+const toggleToLogin = () => {
+  showRegister.value = false
+  showLogin.value = true
+}
+
+const closeRegisterModal = () => {
+  showRegister.value = false
+}
+
+// ✅ DOM-safe dark mode toggle
+onMounted(() => {
+  watch(darkMode, (val) => {
+    if (val) {
+      document.body.classList.add('dark-mode')
+    } else {
+      document.body.classList.remove('dark-mode')
+    }
+  }, { immediate: true })
+})
+</script>
+
   
   <style scoped>
-  /* Global */
-  * {
+/* Global */
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
 
-body {
+html, body {
   font-family: 'Poppins', sans-serif;
   background-color: #f4f4f9;
   color: #333;
   line-height: 1.6;
   transition: all 0.3s ease-in-out;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  height: 100%;
 }
 
 .dark-mode {
@@ -246,7 +264,7 @@ header {
   left: 0;
   z-index: 1000;
   background: linear-gradient(90deg, rgba(186,0,93,1) 0%, rgba(22,0,11,1) 100%);
-  padding: 10px;
+  padding: 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -254,16 +272,21 @@ header {
   border-bottom: 4px solid #6a0035;
 }
 
-.dark-mode header {
-  background: linear-gradient(90deg, rgba(22,0,11,1) 0%, rgba(186,0,93,1) 100%);
-  color: white;
-}
-
 header h1 {
   font-size: 2.5em;
   font-weight: 700;
   color: transparent;
   -webkit-text-stroke: 2px white;
+  margin-left: 20px;
+}
+
+.dark-mode header {
+  background: linear-gradient(90deg, rgba(22,0,11,1) 0%, rgba(186,0,93,1) 100%);
+  color: white;
+}
+
+nav {
+  margin-right: 20px;
 }
 
 nav ul {
@@ -403,12 +426,14 @@ nav ul li a:hover {
 
 /* Main layout */
 main {
+  width: 100%;
+  margin: 0;
+  padding: 20px 0;
+  margin-top: 60px; /* Adjust based on your header height */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 40px;
-  padding: 20px;
-  margin-top: 40px;
 }
 
 /* Sections */
@@ -422,6 +447,7 @@ main {
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  margin: 0 auto;
 }
 
 .what-is-timerr:hover,
@@ -455,6 +481,8 @@ main {
   gap: 20px;
   width: 100%;
   max-width: 1200px;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .how-it-works img {
@@ -498,7 +526,8 @@ main {
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 20px;
+  padding: 20px 0;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -508,7 +537,6 @@ main {
   padding: 20px;
   border-radius: 10px;
   width: 300px;
-  height: 450px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -587,6 +615,121 @@ main {
   cursor: pointer;
 }
 
+/* Dark mode styling */
+body.dark-mode main,
+body.dark-mode html,
+body.dark-mode .what-is-timerr,
+body.dark-mode .how-timerr-works,
+body.dark-mode .key-features,
+body.dark-mode .card {
+  background-color: #424242 !important;
+  color: #f0f0f0;
+}
+
+body.dark-mode .card h3 {
+  color: #ff66a3;
+}
+
+body.dark-mode .card p {
+  color: #e0e0e0;
+}
+
+body.dark-mode .button-3 {
+  background-color: #cc0066;
+}
+
+body.dark-mode .button-3:hover {
+  background-color: #ff3385;
+}
+
+/* Dark Mode Styling */
+body.dark-mode {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+/* Smooth transitions */
+body.dark-mode *,
+body.dark-mode *::before,
+body.dark-mode *::after {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Section backgrounds */
+body.dark-mode main,
+body.dark-mode .what-is-timerr,
+body.dark-mode .how-timerr-works,
+body.dark-mode .key-features,
+body.dark-mode .modal,
+body.dark-mode .card {
+  background-color: #2a2a2a;
+  color: #f0f0f0;
+  border: 1px solid #444;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+/* Section titles */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3 {
+  color: #ff66a3;
+}
+
+/* Paragraphs */
+body.dark-mode p,
+body.dark-mode li {
+  color: #cccccc;
+}
+
+/* Lists */
+body.dark-mode .key-features ul li::before {
+  color: #ff66a3;
+}
+
+/* Buttons */
+body.dark-mode .button-3 {
+  background-color: #cc0066;
+  color: #ffffff;
+  border: none;
+}
+
+body.dark-mode .button-3:hover {
+  background-color: #ff3385;
+}
+
+/* Cards */
+body.dark-mode .card h3 {
+  color: #ff66a3;
+}
+
+body.dark-mode .card p {
+  color: #ddd;
+}
+
+/* Modals */
+body.dark-mode .modal-content {
+  background-color: #2e2e2e;
+  color: #ffffff;
+}
+
+body.dark-mode .close {
+  color: #ff66a3;
+}
+
+/* Dropdown menus */
+body.dark-mode .dropdown-content {
+  background-color: #3a3a3a;
+}
+
+body.dark-mode .dropdown-content li a {
+  color: #fff;
+}
+
+body.dark-mode .dropdown-content li a:hover {
+  background-color: #4a4a4a;
+}
+
+/* Modal dark mode */
 .dark-mode .modal {
   background-color: rgba(0, 0, 0, 0.7);
 }
@@ -599,6 +742,5 @@ main {
 .dark-mode .close {
   color: #eaeaea;
 }
-
   </style>
   
